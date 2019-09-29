@@ -21,6 +21,7 @@ public class LenderGlobalException {
         //error.setTimeStamp(System.currentTimeMillis());
 
         return new ResponseEntity<>(exec, HttpStatus.NOT_FOUND);
+        // comment for testing Git
 	}
 
 }
