@@ -3,6 +3,8 @@ package com.idexcel.AnshulJainadminservice.entity;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.IndexDirection;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -10,6 +12,9 @@ public class Lender {
 	
 	@Id
 	private String id;
+	
+	//@Indexed(unique = true, direction = IndexDirection.ASCENDING)
+	private String name;
 	
 	private Address address;
 	
@@ -22,20 +27,29 @@ public class Lender {
     
     public Lender() {};
 
-	public Lender(String id, Address address, Contact primaryContact, String status, String createdBy, Date createdDate,
-			String updatedBy, Date updatedDate) {
-		//super();
-		this.id = id;
-		this.address = address;
-		this.primaryContact = primaryContact;
-		this.status = status;
-		this.createdBy = createdBy;
-		this.createdDate = createdDate;
-		this.updatedBy = updatedBy;
-		this.updatedDate = updatedDate;
-	}
+    public Lender(String id, String name, Address address,
+            Contact primaryContact, String status, String createdBy, Date createdDate,
+            String updatedBy, Date updatedDate) {
+			  this.id = id;
+			  this.name = name;
+			  this.address = address;
+			  this.primaryContact = primaryContact;
+			  this.status = status;
+			  this.createdBy = createdBy;
+			  this.createdDate = createdDate;
+			  this.updatedBy = updatedBy;
+			  this.updatedDate = updatedDate;
+}
     
-    public String getId() {
+    public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getId() {
 		return id;
 	}
 	public void setId(String id) {

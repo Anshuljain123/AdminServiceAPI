@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.idexcel.AnshulJainadminservice.exception.LenderAlreadyExistsException;
 import com.idexcel.AnshulJainadminservice.exception.LenderNotFoundException;
 
 @Configuration
@@ -20,8 +21,12 @@ public class LenderGlobalException {
         //error.setMessage(exec.getMessage());
         //error.setTimeStamp(System.currentTimeMillis());
 
-        return new ResponseEntity<>(exec, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<LenderNotFoundException>(exec, HttpStatus.NOT_FOUND);
         // comment for testing Git
 	}
 
+	public ResponseEntity<LenderAlreadyExistsException> handleException(LenderAlreadyExistsException exec){
+		return new ResponseEntity<LenderAlreadyExistsException>(exec, HttpStatus.CONFLICT);
+
+    }
 }

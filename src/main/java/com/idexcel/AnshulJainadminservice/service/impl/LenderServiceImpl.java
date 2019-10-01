@@ -2,6 +2,7 @@ package com.idexcel.AnshulJainadminservice.service.impl;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -47,33 +48,46 @@ public class LenderServiceImpl implements LenderService{
 
 	@Override
 	public Lender getLenderById(String Id) {
-		// TODO Auto-generated method stub
-		return null;
+		 Optional<Lender> existing = lenderRepo.getLenderById(Id);
+		 if(!existing.isPresent() || existing.get().getStatus() == "SUSPENDED" ) //without enum
+	            throw new LenderNotFoundException("Lender does not exist or status is suspended!");
+	        return existing.get();
+		
+
 	}
 
 	@Override
-	public void updateLenderById(String Id) {
-		// TODO Auto-generated method stub
+	public Lender updateLenderById(String Id) { 
+		Optional<Lender> existing = lenderRepo.findById(Id);
+        if(!existing.isPresent())
+            throw new LenderNotFoundException("Lender not found!");
+        //return existing.get(); // what is happening here
+        return existing.get();
+    }
 		
-	}
+	
 
+	
 	@Override
-	public void deleteLenderById(String Id) {
-		// TODO Auto-generated method stub
+	public void update(String id, Lender lender) { // 
+		lender.setUpdatedDate(Calendar.getInstance().getTime());
+        lender.setId(id);
+        lenderRepo.save(lender);
+    }
 		
-	}
-
-	@Override
-	public void update(String id, Lender lender) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public void delete(String id) {
 		lenderRepo.deleteById(id);
 
 	}
-	
+
+//	@Override
+//	public Lender updateLenderById(String Id) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//	
 
 }

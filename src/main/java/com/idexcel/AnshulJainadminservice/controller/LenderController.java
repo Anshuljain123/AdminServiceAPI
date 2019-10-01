@@ -14,16 +14,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.idexcel.AnshulJainadminservice.LenderService;
 import com.idexcel.AnshulJainadminservice.dto.LenderDTO;
 import com.idexcel.AnshulJainadminservice.dto.LenderListDTO;
+import com.idexcel.AnshulJainadminservice.dto.LenderPatchDTO;
+import com.idexcel.AnshulJainadminservice.dto.LenderUpdateDTO;
 import com.idexcel.AnshulJainadminservice.entity.Lender;
 
 @RestController
@@ -41,14 +46,7 @@ public class LenderController {
 	@PostMapping
 	public ResponseEntity<Object> addLender(@Valid @RequestBody LenderDTO addLenderDTO, HttpServletRequest request) {
         Lender lender = modelMapper.map(addLenderDTO, Lender.class);
-//		TestMapper lender = new TestMapper(addLenderDTO.getName(), 
-//											addLenderDTO.getAddress().getStreet(), 
-//											addLenderDTO.getAddress().getCity(), 
-//											addLenderDTO.getAddress().getState(), 
-//											addLenderDTO.getAddress().getCountry(), 
-//											addLenderDTO.getAddress().getZipCode(), 
-//											addLenderDTO.getPrimaryContact().getEmail(), 
-//											addLenderDTO.getPrimaryContact().getPhone());
+//		
         String id = service.addLender(lender);
 		//String id = "test";
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -63,6 +61,36 @@ public class LenderController {
        return service.getAllLenders();
 
     }	
+    
+    @ResponseStatus(code = HttpStatus.OK)
+    @GetMapping(value  = "{lenderId}")
+    public LenderListDTO findById(@PathVariable("lenderId") String lenderId){
+        Lender lender = service.getLenderById(lenderId);
+        return modelMapper.map(lender, LenderListDTO.class);
+    }
+    
+    
+   @ResponseStatus(code = HttpStatus.NO_CONTENT)
+   @PutMapping(value="{lenderId}")
+   public void updateLender(@PathVariable("lenderId") String lenderId, @Valid @RequestBody LenderUpdateDTO lenderUpdateDTO){
+        Lender lender = service.updateLenderById(lenderId);
+       modelMapper.map(lenderUpdateDTO, lender);
+       service.update(lenderId, lender);
+    }
+
+   @ResponseStatus(code = HttpStatus.NO_CONTENT)
+   @PatchMapping(value="{lenderId}")
+    public void patchLender(@PathVariable("lenderId") String lenderId, @Valid @RequestBody LenderPatchDTO lenderPatchDTO){
+      Lender lender = service.updateLenderById(lenderId);
+       modelMapper.map(lenderPatchDTO, lender);
+        service.update(lenderId, lender);
+    }
+    
+    @ResponseStatus(code = HttpStatus.OK)  // for head
+    @RequestMapping(value = "{lenderId}", method = RequestMethod.HEAD)
+    public void getStatus(@PathVariable("lenderId") String lenderId){	
+        service.getLenderById(lenderId);
+    }
     
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     @DeleteMapping(value="{lenderId}")
