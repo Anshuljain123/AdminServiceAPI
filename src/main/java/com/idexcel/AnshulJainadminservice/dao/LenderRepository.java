@@ -11,7 +11,7 @@ import com.idexcel.AnshulJainadminservice.entity.Lender;
 
 public interface LenderRepository extends MongoRepository<Lender, String> {
 
-	Optional<Lender> getLenderById(String id);
+	//Optional<Lender> getLenderById(String id);
 
 	//Optional<Lender> updateLenderById(String id);
 

@@ -14,7 +14,7 @@ import com.idexcel.AnshulJainadminservice.dao.LenderRepository;
 import com.idexcel.AnshulJainadminservice.dto.LenderListDTO;
 import com.idexcel.AnshulJainadminservice.entity.Lender;
 import com.idexcel.AnshulJainadminservice.exception.LenderNotFoundException;
-
+ 
 @Service
 public class LenderServiceImpl implements LenderService{
 	
@@ -48,7 +48,7 @@ public class LenderServiceImpl implements LenderService{
 
 	@Override
 	public Lender getLenderById(String Id) {
-		 Optional<Lender> existing = lenderRepo.getLenderById(Id);
+		 Optional<Lender> existing = lenderRepo.findById(Id);
 		 if(!existing.isPresent() || existing.get().getStatus() == "SUSPENDED" ) //without enum
 	            throw new LenderNotFoundException("Lender does not exist or status is suspended!");
 	        return existing.get();
@@ -79,6 +79,8 @@ public class LenderServiceImpl implements LenderService{
 
 	@Override
 	public void delete(String id) {
+		
+		getLenderById(id);
 		lenderRepo.deleteById(id);
 
 	}

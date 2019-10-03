@@ -1,4 +1,5 @@
-package com.idexcel.AnshulJainadminservice;
+package com.idexcel.AnshulJainadminservice.service.impl;
+
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,7 @@ public class AnshulJainAdminServiceApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		
 	}
 
 }
