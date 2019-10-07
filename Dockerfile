@@ -1,6 +1,6 @@
 FROM openjdk:8-jdk-alpine
 
-MAINTAINER="anshul.jain@idexcel.net"
+MAINTAINER "anshul.jain@idexcel.net"
 
 EXPOSE 8080
 
