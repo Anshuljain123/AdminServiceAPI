@@ -28,9 +28,9 @@ node {
 	    }
 	        
 	    stage('Push Docker Image to Docker Hub') { 
-	    		withCredentials([usernamePassword(credentialsId: 'dockeranshuljain', passwordVariable: 'pass', usernameVariable: 'user')]) {
+	    		withCredentials([usernamePassword(credentialsId: 'jainanshul', passwordVariable: 'pass', usernameVariable: 'user')]) {
 	    			sh 'docker login -u $user -p $pass' 
-	        		sh 'docker push dockeranshuljain/admin-service'
+	        		sh 'docker push dockeranshuljain/admin-service-anshul'
 			}	 
 	    }
 	    
