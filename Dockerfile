@@ -4,7 +4,7 @@ MAINTAINER "anshul.jain@idexcel.net"
 
 EXPOSE 8080
 
-COPY ./target/Anshuljain-admin-service-0.0.1-SNAPSHOT.jar anshuljain-admin-service-0.0.1-SNAPSHOT.jar
+COPY ./target/Anshuljain-admin-service-0.0.1-SNAPSHOT.jar anshul-admin-service-0.0.1-SNAPSHOT.jar
 
 
 ENTRYPOINT ["java","-jar","anshul-admin-service-0.0.1-SNAPSHOT.jar"]
